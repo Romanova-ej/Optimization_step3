@@ -10,6 +10,7 @@
 #include <memory>
 #include<random>
 #include "Hother.h"
+#include <QObject>
 using namespace std;
 /**
 \file
@@ -19,7 +20,8 @@ using namespace std;
 /**
 \brief Abstract base class for a multidimensional functions and information about it
 */
-class Function {
+class Function{// :public QObject{
+  //  Q_OBJECT
 protected:
 	int dim;
 	const double DELTA = 0.000000001;
@@ -63,6 +65,10 @@ public:
 		const vector<double> &B);
 	friend vector<double> operator+(const vector<double>& a,
 		const vector<double> &b);
+//public slots:
+//    void setArea(const Area&);
+//signals:
+//    void areaChanged(const Area& newArea);
 };
 /**
 \brief Function of two variables

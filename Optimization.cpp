@@ -124,6 +124,7 @@ vector<double> RandomSearch::minimize(vector<double> x, const Function& f,
 
 	//x = simulateUniformInD(f.getArea());
 	y = x;
+    trajectory.push_back(y);
 	for (int i = 0, no_change = 0; !c.stop(y, y0, f, i, no_change); ++i) {
 		if (u(mt_rand) < p) {
 			x = simulateUniformInD(f.getArea());

@@ -1,4 +1,5 @@
 #include "HFunction.h"
+
 using namespace std;
 
 void Function::setDim(const int d) { dim = d; }
@@ -32,6 +33,13 @@ const double Function::operator()(const vector<double>&x) {
 const Area& Function::getArea() const {
 	return D;
 }
+// void Function::setArea(const Area& newD){
+//     if (newD!=D){
+//         D.setArea(newD);
+//         emit areaChanged(newD);
+//     }
+// }
+
 
 Fun1::Fun1() {
 	setDim(2);
@@ -85,8 +93,8 @@ const char* Fun3::getFunctionName() const { return"(x1-2x2)^2"; }
 
 Fun4::Fun4() {// x=(1,1),  f=0;
 	setDim(2);
-	double l[2] = { -1,-1 };
-	double r[2] = { 2,2 };
+    double l[2] = { -1,-1 };
+    double r[2] = { 2,2 };
 	vector<double> leftD(l, l + 2);
 	vector<double> rightD(r, r + 2);
 	D.setArea(leftD, rightD);

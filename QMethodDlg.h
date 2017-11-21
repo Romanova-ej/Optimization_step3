@@ -14,7 +14,8 @@ class QMethodDlg : public QDialog
 public:
     explicit QMethodDlg(QWidget *parent = 0);
     ~QMethodDlg();
-
+public slots:
+   void  OKEnabled();
 private:
     Ui::QMethodDlg *ui;
 };
