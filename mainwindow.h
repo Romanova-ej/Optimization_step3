@@ -9,12 +9,14 @@
 #include "qcustomplot.h"
 #include "HOptimization.h"
 #include "HCriterion.h"
-
+#include <QSettings>
+#include "QMethodDlg.h"
 
 namespace Ui {
 class MainWindow;
 }
-
+class QFunDlg;
+class QMethodDlg;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -35,24 +37,32 @@ shared_ptr<Criterion> breakeCriterion;
 vector<double> x0;
 deque<vector<double> > path;
 QCPAbstractPlottable* a;
+QCPAbstractPlottable* map;//
+QCPColorScale* scaleMap;//
+QCPMarginGroup* marginMap;////
+QSharedPointer<QFuncDlg> FDlg;
+
 
 /////////////
 //QFuncDlg FunctionDialog;
 // void paintEvent(QPaintEvent *event);//рисованиерисованиерисование
 private:
     Ui::MainWindow *ui;
+    QFuncDlg * QFunctionDlg;//
+    QMethodDlg * QMethodOptDlg;
+public:
+    void drawhelp();//
+
 public slots:
-    void goFunDlg();
     void mousePress(QMouseEvent*);
-signals:
-    void createFunDlg();
+    void DrawMapF(shared_ptr<Function> f);
+    void setMethodAndCriterion(shared_ptr<Optimization>,shared_ptr<Criterion>);
 private slots:
     void on_actionFunctions_triggered();
     void on_actionMethods_triggered();
     void on_actionF_triggered();
     void on_actionMethod_triggered();
     void on_offButton_clicked();
-
 };
 
 #endif // MAINWINDOW_H

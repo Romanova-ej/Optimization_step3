@@ -39,13 +39,15 @@ public:
 	int getCounter() const { return counter; }
 	void newIteration() { ++counter; }
 	deque<vector<double> > getTrajectory();
+    void clearTrajectory();
+    void clearCounter();
 };
 
 /**
 \brief The class implements the Fletcher-Reeves method
 */
 class  FletcherRivs :public Optimization {
-	const int FOR_BORDER = 1000000;
+    const int FOR_BORDER =1000000;
 	vector<double> p;
 public:
 	virtual const char* getMethodName() const;
@@ -60,14 +62,11 @@ public:
 \brief The class implements the random search method
 */
 class RandomSearch : public Optimization {
-	int stopIfnoChange;
 	double p;
-	double radius;
-	double radiusChange;
 	double change;
 	vector<double> simulateUniformInD(const Area& D);
 public:
-	RandomSearch(const Area& D, double probability = 0.8, int whenStop = 1000,
+    RandomSearch( double probability = 0.8,
 		double whatChange = 0.9);
 	double initializeRadius(const Area& D) const;
 	virtual const char* getMethodName() const;

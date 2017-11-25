@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     stdafx.cpp \
     QMethodDlg.cpp \
     QFuncDlg.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    RSOptions.cpp
 
 HEADERS  += mainwindow.h \
     HArea.h \
@@ -34,12 +35,13 @@ HEADERS  += mainwindow.h \
     targetver.h \
     QMethodDlg.h \
     QFuncDlg.h \
-    qcustomplot.h
+    qcustomplot.h \
+    RSOptions.h
 
 FORMS    += mainwindow.ui \
-    QFunctionDlg.ui \
     QMethodDlg.ui \
-    QFuncDlg.ui
+    QFuncDlg.ui \
+    RSOptions.ui
 
 RESOURCES += \
     fun.qrc \

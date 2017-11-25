@@ -126,3 +126,10 @@ public:
 	virtual const double f(const vector<double>& x)const override;
 };
 
+class Fun6 :public Function {
+public:
+    Fun6();
+    Fun6(const Area& d);
+    virtual const char* getFunctionName() const override;
+    virtual const double f(const vector<double>& x)const override;
+};

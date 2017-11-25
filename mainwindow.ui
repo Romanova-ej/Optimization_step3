@@ -53,7 +53,13 @@
     <addaction name="actionFunctions"/>
     <addaction name="actionMethods"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+   </widget>
    <addaction name="menuFunction"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actionF">
    <property name="checkable">
@@ -103,8 +109,8 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="Image/image.qrc"/>
   <include location="fun.qrc"/>
+  <include location="Image/image.qrc"/>
  </resources>
  <connections/>
 </ui>

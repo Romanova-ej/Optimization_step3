@@ -2,6 +2,7 @@
 #include "HCriterion.h"
 #include "HFunction.h"
 #include "HOptimization.h"
+#include <QDebug>
 using namespace std;
 
 mt19937 mt_rand(time(0));
@@ -38,6 +39,8 @@ const double FletcherRivs::findBorderAlpha(const vector<double>& x,
 vector<double> FletcherRivs::minimize(vector<double> x, const Function& f,
 	const  Criterion& c) {
 	double b = 0; double a = 1;
+    clearTrajectory();
+    clearCounter();
 	double epsilon_for_argmin = c.getEps();
 	trajectory.push_back(x);//начальную точку тоже запилили в траекторию
 	vector<double> r0(f.getGradient(x));
@@ -98,16 +101,13 @@ vector<double> RandomSearch::simulateUniformInD(const Area& D) {
 	return randx;
 }
 
-RandomSearch::RandomSearch(const Area& D, double probability, int whenSTOP,
-	double whatchange) :p(probability),
-	stopIfnoChange(whenSTOP), change(whatchange) {
-	radius = initializeRadius(D);
-	radiusChange = radius;
+RandomSearch::RandomSearch( double probability,
+    double whatchange) :p(probability), change(whatchange) {
 }
 double RandomSearch::initializeRadius(const Area& D) const {
-	double mind = 0;
-	for (int i = 0; i < D.getDim(); ++i) {
-		double temp = D.getRight()[i] - D.getLeft()[i];
+    double mind = fabs(D.getRight()[0]-D.getLeft()[0]);
+    for (int i = 1; i < D.getDim(); ++i) {
+        double temp = fabs(D.getRight()[i] - D.getLeft()[i]);
 		mind = mind > temp ? temp : mind;
 	}
 	return mind;
@@ -121,6 +121,10 @@ vector<double> RandomSearch::minimize(vector<double> x, const Function& f,
 	vector<double> leftB(dim);
 	vector<double> rightB(dim);
 	bool flag;
+    clearTrajectory();
+    clearCounter();
+    double radius = initializeRadius(f.getArea());
+    double radiusChange = radius;
 
 	//x = simulateUniformInD(f.getArea());
 	y = x;
@@ -152,8 +156,14 @@ vector<double> RandomSearch::minimize(vector<double> x, const Function& f,
 		newIteration();
 		trajectory.push_back(y);
 	}
+    counter-=1;
 	return y;
 }
 
+void Optimization::clearTrajectory(){
+    trajectory.clear();
+}
 
-
+void Optimization::clearCounter(){
+    counter = 0;
+}

@@ -43,8 +43,8 @@ const Area& Function::getArea() const {
 
 Fun1::Fun1() {
 	setDim(2);
-	double l[2] = { -1,-1 };
-	double r[2] = { 2,2 };
+    double l[2] = { 0,-2 };
+    double r[2] = { 4,4 };
 	vector<double> leftD(l, l + 2);
 	vector<double> rightD(r, r + 2);
 	D.setArea(leftD, rightD);
@@ -132,3 +132,21 @@ Fun4::Fun4(const Area& d) :Function(d) {};
 Fun3::Fun3(const Area& d) :Function(d) {};
 Fun2::Fun2(const Area& d) :Function(d) {};
 Fun1::Fun1(const Area& d) :Function(d) {};
+Fun6::Fun6(const Area& d) :Function(d) {};
+
+Fun6::Fun6() {//
+    setDim(2);
+    double l[2] = { -1,-1 };
+    double r[2] = { 0.5,2 };
+    vector<double> leftD(l, l + 2);
+    vector<double> rightD(r, r + 2);
+    D.setArea(leftD, rightD);
+}
+
+const char* Fun6::getFunctionName() const {
+    return "x^2+y^2-y+x^3";
+}
+
+inline const  double Fun6::f(const vector<double>& x) const {
+    return(x[0]*x[0]+x[1]*x[1]-x[1]+x[0]*x[0]*x[0]);
+}

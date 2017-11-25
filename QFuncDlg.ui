@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Function</string>
   </property>
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
@@ -36,17 +36,22 @@
     </property>
     <item>
      <property name="text">
-      <string>Fun1</string>
+      <string>(x-2)^4+(x-2y)^2</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Fun2</string>
+      <string>(x1-2x2)^2</string>
      </property>
     </item>
     <item>
      <property name="text">
-      <string>Fun3</string>
+      <string>(x2-x1^2)^2+100*(1-x1)^2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>x^2+y^2-y+x^3</string>
      </property>
     </item>
    </widget>
@@ -149,8 +154,10 @@
      </item>
     </layout>
    </widget>
+   <zorder>layoutWidget_2</zorder>
+   <zorder>layoutWidget</zorder>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -209,22 +216,6 @@
  </widget>
  <resources/>
  <connections>
-  <connection>
-   <sender>okButton</sender>
-   <signal>clicked()</signal>
-   <receiver>QFuncDlg</receiver>
-   <slot>accept()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>130</x>
-     <y>273</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>131</x>
-     <y>150</y>
-    </hint>
-   </hints>
-  </connection>
   <connection>
    <sender>canselButton</sender>
    <signal>clicked()</signal>
