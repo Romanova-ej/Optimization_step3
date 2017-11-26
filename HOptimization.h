@@ -24,7 +24,7 @@ using namespace std;
 class Optimization {
 protected:
 	int counter = 0;
-	deque<vector<double> >trajectory;//надо что-то для него в конструкторе? 
+    deque<vector<double> >trajectory;
 public:
 	/**
 	\brief It finds a minimum point with given parameters
@@ -46,7 +46,7 @@ public:
 /**
 \brief The class implements the Fletcher-Reeves method
 */
-class  FletcherRivs :public Optimization {
+class  FletcherReeves :public Optimization {
     const int FOR_BORDER =1000000;
 	vector<double> p;
 public:

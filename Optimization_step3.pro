@@ -52,6 +52,5 @@ DISTFILES += \
     Image/cub1.png \
     Image/funct.png \
     Image/function.png \
-    Image/icons8-Косинус-40.png \
     Image/man.png \
     Image/sin.png

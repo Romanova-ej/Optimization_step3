@@ -54,7 +54,7 @@ void QMethodDlg::on_okButton_clicked()
     bool Ok(true);
 //выбор метода
 if(ui->Fletcher->isChecked()){
-opt=make_shared<FletcherRivs>();
+opt=make_shared<FletcherReeves>();
 }
 if(ui->RandomS->isChecked())
     opt=make_shared<RandomSearch>(RSparam->getP(),RSparam->getC());

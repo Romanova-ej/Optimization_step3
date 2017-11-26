@@ -20,8 +20,7 @@ using namespace std;
 /**
 \brief Abstract base class for a multidimensional functions and information about it
 */
-class Function{// :public QObject{
-  //  Q_OBJECT
+class Function{
 protected:
 	int dim;
 	const double DELTA = 0.000000001;

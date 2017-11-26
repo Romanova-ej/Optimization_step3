@@ -17,25 +17,28 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     f=make_shared<Fun6>();
-    opt=make_shared<FletcherRivs>();
+    opt=make_shared<FletcherReeves>();
     breakeCriterion=make_shared<CriterionGradNorm>(0.001);
 
-    x0.push_back(-0.5);//не задавать, а резервировать место
+    x0.push_back(-0.5);
     x0.push_back(0.5);
     opt->minimize(x0,*f,*breakeCriterion);
-    path=opt->getTrajectory();//не задавать, а резервировать место
+    path=opt->getTrajectory();
     a=0; map=0;
-    ;
 
 
     connect(ui->customPlot, SIGNAL(mousePress(QMouseEvent*)), this,
             SLOT(mousePress(QMouseEvent*)));
     connect(QFunctionDlg,SIGNAL(goDrawMapF(shared_ptr<Function> )),this,
             SLOT(DrawMapF(shared_ptr<Function>)) );
+    connect(this,SIGNAL(goDrawMapF(shared_ptr<Function> )),this,
+            SLOT(DrawMapF(shared_ptr<Function>)) );
     connect(QMethodOptDlg,SIGNAL(goChangeMethodOrCriterion(shared_ptr<Optimization>,
                                                            shared_ptr<Criterion>)),
             this,SLOT(setMethodAndCriterion(shared_ptr<Optimization>,
                                             shared_ptr<Criterion>)));
+    emit goDrawMapF(f);
+
 }
 MainWindow::~MainWindow()
 {
@@ -156,7 +159,7 @@ void MainWindow::DrawMapF(shared_ptr<Function> g){
     ui->customPlot->plotLayout()->addElement(0, 1, colorScale); // add it to the right of the main axis rect
     colorScale->setType(QCPAxis::atRight); // scale shall be vertical bar with tick/axis labels right (actually atRight is already the default)
     colorMap->setColorScale(colorScale); // associate the color map with the color scale   (сопоставление карты и цветовой гаммы)
-    colorScale->axis()->setLabel("Magnetic Field Strength");
+    colorScale->axis()->setLabel("f");
 
     // set the color gradient of the color map to one of the presets:
     colorMap->setGradient(QCPColorGradient::gpPolar);//gpPolar,gpCold,gpHot,

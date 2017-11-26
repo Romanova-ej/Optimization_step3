@@ -11,7 +11,7 @@ namespace Ui {
 class RSOptions;
 }
 
-class RSOptions : public QDialog// QMethodDlg
+class RSOptions : public QDialog
 {
     Q_OBJECT
 
@@ -22,8 +22,6 @@ public:
     const double getC() const;
 
 private slots:
-   // void on_okButton_clicked();
-
     void on_okeyButton_clicked();
 
 signals:

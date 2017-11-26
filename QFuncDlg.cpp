@@ -38,7 +38,6 @@ void QFuncDlg::on_okButton_clicked()
         QMessageBox::information(NULL,QObject::tr("Information"),tr("You entered an empty area!"));
         Ok=false;
     }
-    //и остальные параметры из списка сюда
     int numFun=ui->listWidget->currentRow();
     if(Ok){
         vector<double>left;
@@ -75,9 +74,8 @@ void QFuncDlg::on_okButton_clicked()
 
 }
 
-void QFuncDlg::on_listWidget_currentRowChanged(int currentRow)//currentRow -- номер новой активной строки (с 0)
+void QFuncDlg::on_listWidget_currentRowChanged(int currentRow)
 {
-    //при переключении ставим дефолтную область (там таки картинки приличнее)
     shared_ptr<Function> tempg;
     switch (currentRow) {
     case 0:{

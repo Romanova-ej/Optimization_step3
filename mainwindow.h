@@ -27,10 +27,6 @@ public:
 
 
 
-
-
-    /////
-    /// вот это всё тоже хотелось бы куда-то в осмысленную часть, а не в главное окно...но иначе, видимо,никак
 shared_ptr<Function> f;
 shared_ptr<Optimization> opt;
 shared_ptr<Criterion> breakeCriterion;
@@ -45,7 +41,7 @@ QSharedPointer<QFuncDlg> FDlg;
 
 /////////////
 //QFuncDlg FunctionDialog;
-// void paintEvent(QPaintEvent *event);//рисованиерисованиерисование
+// void paintEvent(QPaintEvent *event);
 private:
     Ui::MainWindow *ui;
     QFuncDlg * QFunctionDlg;//
@@ -63,6 +59,8 @@ private slots:
     void on_actionF_triggered();
     void on_actionMethod_triggered();
     void on_offButton_clicked();
+signals:
+    void goDrawMapF(shared_ptr<Function> );
 };
 
 #endif // MAINWINDOW_H

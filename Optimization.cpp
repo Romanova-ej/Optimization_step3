@@ -8,12 +8,11 @@ using namespace std;
 mt19937 mt_rand(time(0));
 uniform_real_distribution<>u(0, 1);
 
-
 deque<vector<double> > Optimization::getTrajectory() {
 	return 	trajectory;
 }
-const char* FletcherRivs::getMethodName() const {
-	return "Fletcher Rivs method";
+const char* FletcherReeves::getMethodName() const {
+    return "Fletcher Reeves method";
 }
 
 
@@ -22,7 +21,7 @@ const char* FletcherRivs::getMethodName() const {
 \param[in] x starting point
 \param[in] D area of minimization
 */
-const double FletcherRivs::findBorderAlpha(const vector<double>& x,
+const double FletcherReeves::findBorderAlpha(const vector<double>& x,
 	const  Area& D) const {
 	double border = FOR_BORDER;
 	double temp = FOR_BORDER;
@@ -36,13 +35,13 @@ const double FletcherRivs::findBorderAlpha(const vector<double>& x,
 
 
 
-vector<double> FletcherRivs::minimize(vector<double> x, const Function& f,
+vector<double> FletcherReeves::minimize(vector<double> x, const Function& f,
 	const  Criterion& c) {
 	double b = 0; double a = 1;
     clearTrajectory();
     clearCounter();
 	double epsilon_for_argmin = c.getEps();
-	trajectory.push_back(x);//начальную точку тоже запилили в траекторию
+    trajectory.push_back(x);
 	vector<double> r0(f.getGradient(x));
 	vector<double> x0(x);
 	int noChange(0);
@@ -56,7 +55,7 @@ vector<double> FletcherRivs::minimize(vector<double> x, const Function& f,
 		b = scalar_prod(r, r) / scalar_prod(r0, r0);
 		p = (-1)*r + b*p;
 		r0 = r;
-		trajectory.push_back(x);//сохраняем итерацию 
+        trajectory.push_back(x);
 		newIteration();
 		if (x == x0) ++noChange;
 	}
@@ -70,7 +69,7 @@ vector<double> FletcherRivs::minimize(vector<double> x, const Function& f,
 \param[in] argmineps accuracy
 \return a positive number equal to the distance from the starting point to the point of minimum of the objective function in the given direction
 */
-double FletcherRivs::calculateArgmin(const vector<double>& x, const Function& f,
+double FletcherReeves::calculateArgmin(const vector<double>& x, const Function& f,
 	double argmineps) const {
 	double l = 0, r = findBorderAlpha(x, f.getArea());
 	double m = (l + r) / 2;
@@ -126,7 +125,6 @@ vector<double> RandomSearch::minimize(vector<double> x, const Function& f,
     double radius = initializeRadius(f.getArea());
     double radiusChange = radius;
 
-	//x = simulateUniformInD(f.getArea());
 	y = x;
     trajectory.push_back(y);
 	for (int i = 0, no_change = 0; !c.stop(y, y0, f, i, no_change); ++i) {

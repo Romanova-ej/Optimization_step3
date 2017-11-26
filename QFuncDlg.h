@@ -18,10 +18,7 @@ shared_ptr<Function> f;
 public:
     explicit QFuncDlg(QWidget *parent = 0);
     ~QFuncDlg();
-//int getNumFunction() const;
-//void setNumFunction(int numF);
-//const Area& getAreaD() const;
-//void setAreaD(const Area&);
+
 shared_ptr<Function> getFunction();
 
 private slots:
