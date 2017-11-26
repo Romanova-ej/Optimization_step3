@@ -18,11 +18,11 @@ MainWindow::MainWindow(QWidget *parent) :
 
     f=make_shared<Fun6>();
     opt=make_shared<FletcherReeves>();
-    breakeCriterion=make_shared<CriterionGradNorm>(0.001);
+    breakCriterion=make_shared<CriterionGradNorm>(0.001);
 
     x0.push_back(-0.5);
     x0.push_back(0.5);
-    opt->minimize(x0,*f,*breakeCriterion);
+    opt->minimize(x0,*f,*breakCriterion);
     path=opt->getTrajectory();
     a=0; map=0;
 
@@ -74,18 +74,16 @@ void MainWindow::on_offButton_clicked()
 
 void MainWindow::mousePress(QMouseEvent* newClick)
 {
-    int xx=newClick->x();//координаты клика в пикселях по оси x
-    int yy=newClick->y();//координаты клика в пикселях по оси y
+    int xx=newClick->x();
+    int yy=newClick->y();
 
-    double xinPlot=ui->customPlot->xAxis->pixelToCoord(xx);//координаты относительно графика
+    double xinPlot=ui->customPlot->xAxis->pixelToCoord(xx);
     double yinPlot=ui->customPlot->yAxis->pixelToCoord(yy);
-
-    //проверка, что попали в область
     if((xinPlot<=f->getArea().getRight()[0])&&(xinPlot>=f->getArea().getLeft()[0])
             &&(yinPlot<=f->getArea().getRight()[1])&&
             (yinPlot>=f->getArea().getLeft()[1])){
         x0[0]=xinPlot; x0[1]=yinPlot;
-        vector<double> result=opt->minimize(x0,*f,*breakeCriterion);
+        vector<double> result=opt->minimize(x0,*f,*breakCriterion);
         int numIterations=opt->getCounter();
         path=opt->getTrajectory();
 
@@ -99,15 +97,12 @@ void MainWindow::mousePress(QMouseEvent* newClick)
         {
             dataSpiral1[i] = QCPCurveData(i, path[i][0],(path[i][1]));
         }
-
-        // pass the data to the curves; we know t (i in loop above) is ascending, so set alreadySorted=true (saves an extra internal sort):
         fermatSpiral1->data()->set(dataSpiral1, true);
         fermatSpiral1->setScatterStyle((QCPScatterStyle
                                         (QCPScatterStyle::ssDisc , 5)));
         // color the curves:
         fermatSpiral1->setPen(QPen(Qt::red));
         a=fermatSpiral1;
-        //добавим инфу вниз окна
         QString str;
         QTextStream(&str) << "|| "<<opt->getMethodName() << " || "<<numIterations<<
                              " iterations ||"<<" x = ( "<<result[0]<<" , "<<result[1]
@@ -132,7 +127,7 @@ void MainWindow::DrawMapF(shared_ptr<Function> g){
     // set up the QCPColorMap:
     QCPColorMap *colorMap = new QCPColorMap(ui->customPlot->xAxis,
                                             ui->customPlot->yAxis);
-    int nx = 500;//сделать какую-нибудь константу адекватную
+    int nx = 500;
     int ny = 500;
     colorMap->data()->setSize(nx, ny); // we want the color map to have nx * ny data points
     colorMap->data()->setRange(QCPRange(f->getArea().getLeft()[0],
@@ -148,47 +143,36 @@ void MainWindow::DrawMapF(shared_ptr<Function> g){
             vector<double> arg(2);
             arg[0]=x; arg[1]=y;
             double r=f->f(arg);
-            // double r=qSin(x)*qCos(y);//красиво. границы можно взять -+5
             colorMap->data()->setCell(xIndex, yIndex, r);
         }
     }
 
     // add a color scale:
-    ui->customPlot->removeEventFilter(scaleMap);///////+++++++++++++++++++++++++++++-----------
+    ui->customPlot->removeEventFilter(scaleMap);
     QCPColorScale *colorScale = new QCPColorScale(ui->customPlot);
-    ui->customPlot->plotLayout()->addElement(0, 1, colorScale); // add it to the right of the main axis rect
-    colorScale->setType(QCPAxis::atRight); // scale shall be vertical bar with tick/axis labels right (actually atRight is already the default)
-    colorMap->setColorScale(colorScale); // associate the color map with the color scale   (сопоставление карты и цветовой гаммы)
-    colorScale->axis()->setLabel("f");
-
-    // set the color gradient of the color map to one of the presets:
+    ui->customPlot->plotLayout()->addElement(0, 1, colorScale);
+    colorScale->setType(QCPAxis::atRight);
+    colorMap->setColorScale(colorScale);
+    colorScale->axis()->setLabel("Function value");
     colorMap->setGradient(QCPColorGradient::gpPolar);//gpPolar,gpCold,gpHot,
-    // we could have also created a QCPColorGradient instance and added own colors to
-    // the gradient, see the documentation of QCPColorGradient for what's possible.
-
-    // rescale the data dimension (color) such that all data points lie in the span visualized by the color gradient:(масштабируем цвет и данные)
     colorMap->rescaleDataRange();
 
     ui->customPlot->removeEventFilter(marginMap);
-    // make sure the axis rect and color scale synchronize their bottom and top margins (so they line up):
     QCPMarginGroup *marginGroup = new QCPMarginGroup(ui->customPlot);
     ui->customPlot->axisRect()->setMarginGroup(QCP::msBottom|QCP::msTop,
                                                marginGroup);
     colorScale->setMarginGroup(QCP::msBottom|QCP::msTop, marginGroup);
 
-    // rescale the key (x) and value (y) axes so the whole color map is visible:
     ui->customPlot->rescaleAxes();
     map=colorMap;
     scaleMap=colorScale;
     marginMap=marginGroup;
-
     ui->customPlot->replot();
-
 }
 
 void MainWindow::setMethodAndCriterion(shared_ptr<Optimization>optim,
                                        shared_ptr<Criterion>crit){
-    opt=optim; breakeCriterion=crit;
+    opt=optim; breakCriterion=crit;
 }
 
 

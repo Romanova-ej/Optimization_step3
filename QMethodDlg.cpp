@@ -62,26 +62,26 @@ if(ui->RandomS->isChecked())
 QString str=ui->eEdit->text();
 if(ui->cr1->isChecked()){
     eps=str.toDouble();
-    breakeCriterion=make_shared<CriterionGradNorm>(eps);
+    breakCriterion=make_shared<CriterionGradNorm>(eps);
 }
 if(ui->cr2->isChecked()){
       num=str.toInt();
-    breakeCriterion=make_shared<CriterionNumOfIteration>(num);
+    breakCriterion=make_shared<CriterionNumOfIteration>(num);
 }
 if(ui->cr3->isChecked()){
      num=str.toInt();
-    breakeCriterion=make_shared<CriterionNumOfNochangeIteration>(num);
+    breakCriterion=make_shared<CriterionNumOfNochangeIteration>(num);
 }
 if(ui->cr4->isChecked()){
      eps=str.toDouble();
-    breakeCriterion=make_shared<CriterionDifferenceOfValuef>(eps);
+    breakCriterion=make_shared<CriterionDifferenceOfValuef>(eps);
 }
 if(eps==0){
     Ok=false;
      QMessageBox::information(NULL,QObject::tr("Information"),tr("Epsilon must be positive!"));
 }
 if(Ok){
-emit goChangeMethodOrCriterion(opt,breakeCriterion);
+emit goChangeMethodOrCriterion(opt,breakCriterion);
 emit close();
 }
 }

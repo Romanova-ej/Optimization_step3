@@ -29,7 +29,7 @@ public:
 
 shared_ptr<Function> f;
 shared_ptr<Optimization> opt;
-shared_ptr<Criterion> breakeCriterion;
+shared_ptr<Criterion> breakCriterion;
 vector<double> x0;
 deque<vector<double> > path;
 QCPAbstractPlottable* a;

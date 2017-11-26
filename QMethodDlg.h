@@ -40,7 +40,7 @@ private:
     Ui::QMethodDlg *ui;
     RSOptions* RSparam;
     shared_ptr<Optimization> opt;
-    shared_ptr<Criterion> breakeCriterion;
+    shared_ptr<Criterion> breakCriterion;
     double eps; int num;
 };
 

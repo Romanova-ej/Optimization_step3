@@ -86,7 +86,7 @@ Introduced for one-dimensional quantities
 class CriterionOneDimNorm :public Criterion {
 public:
 	CriterionOneDimNorm(double epsilon = 0.001, int stopId = 10000) :
-		Criterion(epsilon, stopId) {};
+        Criterion(epsilon, stopId) {};
 	virtual const bool stop(const vector<double>& x, const vector<double>& y,
 		const Function& f, int nIteration, int nIterationWithoutChange = 0) 
 		const override;
